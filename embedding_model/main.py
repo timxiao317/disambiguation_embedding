@@ -1,6 +1,6 @@
 import data_parser
 import pickle
-from os.path import dirname, join
+from os.path import dirname, join, abspath
 
 import embedding
 import train_helper
@@ -49,7 +49,7 @@ def main(args):
 
 if __name__ == "__main__":
     DATA_SET_NAME = 'whoiswho_new'
-    PROJ_DIR = dirname(dirname(__file__))
+    PROJ_DIR = dirname(dirname(abspath(__file__)))
     PARENT_PROJ_DIR = dirname(PROJ_DIR)
     print PARENT_PROJ_DIR
     RAW_DATA_DIR = join(PARENT_PROJ_DIR, 'sota_data', 'cikm_data', DATA_SET_NAME)
