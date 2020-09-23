@@ -33,14 +33,12 @@ def main(args):
     pipeline for representation learning for all papers for a given name reference
     """
     dataset = data_parser.DataSet(args.file_path)
-    print 'load successfully'
     bpr_optimizer = embedding.BprOptimizer(args.latent_dimen, args.alpha,
                                            args.matrix_reg)
     pp_sampler = sampler.CoauthorGraphSampler()
     pd_sampler = sampler.BipartiteGraphSampler()
     dd_sampler = sampler.LinkedDocGraphSampler()
     eval_f1 = eval_metric.Evaluator()
-
     run_helper = train_helper.TrainHelper()
     run_helper.helper(args.num_epoch, dataset, bpr_optimizer,
                       pp_sampler, pd_sampler, dd_sampler,
