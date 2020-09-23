@@ -37,7 +37,7 @@ class DataSet():
                             self.paper_authorlist_dict[paper_index] = author_list
                         else:
                             self.paper_authorlist_dict[paper_index] = author_list
-
+                        print(author_list)
                         for co_author in author_list:
                             coauthor_set.add(co_author)
 
@@ -74,21 +74,27 @@ class DataSet():
                         for snd_hop in self.C_Graph.neighbors(first_hop):
                             temp.add(snd_hop)
             paper_2hop_dict[paper_idx] = temp
+        edges = []
         for idx1 in xrange(0, len(self.paper_list) - 1):
+            print(idx1)
             for idx2 in xrange(idx1 + 1, len(self.paper_list)):
-                # t1 = time.time()
+                t1 = time.time()
                 temp_set1 = paper_2hop_dict[self.paper_list[idx1]]
                 temp_set2 = paper_2hop_dict[self.paper_list[idx2]]
-                # t2 = time.time()
-                # print('1:', t2 - t1)
+                print(len(temp_set2))
                 edge_weight = len(temp_set1.intersection(temp_set2))
+                t2 = time.time()
+                # print('1:', t2 - t1)
                 if edge_weight != 0:
-                    self.D_Graph.add_edge(self.paper_list[idx1],
-                                          self.paper_list[idx2],
-                                          weight = edge_weight)
-                # t3 = time.time()
+                    edges.append([self.paper_list[idx1], self.paper_list[idx2], edge_weight])
+                #     self.D_Graph.add_edge(self.paper_list[idx1],
+                #                           self.paper_list[idx2],
+                #                           weight = edge_weight)
+                t3 = time.time()
                 # print('2:', t3 - t2)
-
+        print(1)
+        self.D_Graph.add_weighted_edges_from(edges)
+        print(2)
         bipartite_num_edge = 0
         for key, val in self.paper_authorlist_dict.items():
             if val != []:
