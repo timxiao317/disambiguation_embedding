@@ -28,7 +28,7 @@ def save_embedding(dict, paper_list, num_dimen):
     """
     save the final embedding results for each document
     """
-    embedding_file = open('../emb/doc_emb.txt','w')
+    embedding_file = open('emb/doc_emb.txt','w')
     embedding_file.write(str(len(paper_list)) + ' ' + str(num_dimen) + os.linesep)
     D_matrix = dict[paper_list[0]]
     for idx in xrange(1, len(paper_list)):
