@@ -51,6 +51,7 @@ if __name__ == "__main__":
     DATA_SET_NAME = 'whoiswho_new'
     PROJ_DIR = dirname(dirname(__file__))
     PARENT_PROJ_DIR = dirname(PROJ_DIR)
+    print(PARENT_PROJ_DIR)
     RAW_DATA_DIR = join(PARENT_PROJ_DIR, 'sota_data', 'cikm_data', DATA_SET_NAME)
     SPLIT_PATH = join(PARENT_PROJ_DIR, 'split')
     with open(join(SPLIT_PATH, '{}_python2'.format(DATA_SET_NAME)), 'rb') as load:
