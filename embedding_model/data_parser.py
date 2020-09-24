@@ -25,12 +25,12 @@ class DataSet():
             for line in filetoread:
                 line = line.strip()
                 if "FullName" in line:
-                    ego_name = line[line.find('>')+1:line.rfind('<')].strip()
+                    ego_name = line[line.find('>') + 1:line.rfind('<')].strip()
                 elif "<publication>" in line:
                     paper_index += 1
                     self.paper_list.append(paper_index)
                 elif "<authors>" in line:
-                    author_list = line[line.find('>')+1: line.rfind('<')].strip().split(',')
+                    author_list = line[line.find('>') + 1: line.rfind('<')].strip().split(',')
                     if len(author_list) > 1:
                         if ego_name in author_list:
                             author_list.remove(ego_name)
@@ -42,11 +42,11 @@ class DataSet():
 
                         # construct the coauthorship graph
                         for pos in xrange(0, len(author_list) - 1):
-                            for inpos in xrange(pos+1, len(author_list)):
+                            for inpos in xrange(pos + 1, len(author_list)):
                                 src_node = author_list[pos]
                                 dest_node = author_list[inpos]
                                 if not self.C_Graph.has_edge(src_node, dest_node):
-                                    self.C_Graph.add_edge(src_node, dest_node, weight = 1)
+                                    self.C_Graph.add_edge(src_node, dest_node, weight=1)
                                 else:
                                     edge_weight = self.C_Graph[src_node][dest_node]['weight']
                                     edge_weight += 1
@@ -54,7 +54,7 @@ class DataSet():
                     else:
                         self.paper_authorlist_dict[paper_index] = []
                 elif "<label>" in line:
-                    label = int(line[line.find('>')+1: line.rfind('<')].strip())
+                    label = int(line[line.find('>') + 1: line.rfind('<')].strip())
                     self.label_list.append(label)
         self.coauthor_list = list(coauthor_set)
         """

@@ -28,11 +28,11 @@ def save_embedding(dict, paper_list, num_dimen):
     """
     save the final embedding results for each document
     """
-    embedding_file = open('emb/doc_emb.txt','w')
+    embedding_file = open('emb/doc_emb.txt', 'w')
     embedding_file.write(str(len(paper_list)) + ' ' + str(num_dimen) + os.linesep)
     D_matrix = dict[paper_list[0]]
     for idx in xrange(1, len(paper_list)):
         D_matrix = np.vstack((D_matrix, dict[paper_list[idx]]))
-    D_matrix = np.hstack((np.array([range(1, len(paper_list)+1)]).T, D_matrix))
+    D_matrix = np.hstack((np.array([range(1, len(paper_list) + 1)]).T, D_matrix))
     np.savetxt(embedding_file, D_matrix,
-               fmt = ' '.join(['%i'] + ['%1.5f'] * num_dimen))
+               fmt=' '.join(['%i'] + ['%1.5f'] * num_dimen))

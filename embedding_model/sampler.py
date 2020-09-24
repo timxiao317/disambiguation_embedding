@@ -2,12 +2,12 @@ import numpy as np
 import random
 from utility import softmax
 
-
 """
 (i, j) belongs positive sample set
 (i, t) belongs negative sample set
 notation details are in the paper
 """
+
 
 class CoauthorGraphSampler():
     @staticmethod
@@ -74,7 +74,7 @@ class CoauthorGraphSampler():
         """
         a_i = random.choice(dataset.C_Graph.nodes())
         neg_list = list(set(dataset.coauthor_list) - \
-                   set(dataset.C_Graph.neighbors(a_i)) - set([a_i]))
+                        set(dataset.C_Graph.neighbors(a_i)) - set([a_i]))
 
         # given a_i, sample its neighbor based on its weight value
         # idea of edge sampling
@@ -88,7 +88,7 @@ class CoauthorGraphSampler():
         # sample negative instance based on pre-defined exponential distribution
         norm_soft = softmax([bpr_optimizer.predict_score(a_i, ne, "pp")
                              for ne in neg_list])
-        a_t = np.random.choice(neg_list, 1, p = norm_soft)[0]
+        a_t = np.random.choice(neg_list, 1, p=norm_soft)[0]
         yield a_i, a_j, a_t
 
 
@@ -154,7 +154,7 @@ class LinkedDocGraphSampler():
         """
         d_i = random.choice(dataset.D_Graph.nodes())
         neg_list = list(set(dataset.paper_list) - \
-                   set(dataset.D_Graph.neighbors(d_i)) - set([d_i]))
+                        set(dataset.D_Graph.neighbors(d_i)) - set([d_i]))
 
         # given a_i, sample its neighbor based on its weight value
         # idea of edge sampling
@@ -168,7 +168,7 @@ class LinkedDocGraphSampler():
         # sample negative instance based on pre-defined exponential distribution
         norm_soft = softmax([bpr_optimizer.predict_score(d_i, ne, "dd")
                              for ne in neg_list])
-        d_t = np.random.choice(neg_list, 1, p = norm_soft)[0]
+        d_t = np.random.choice(neg_list, 1, p=norm_soft)[0]
         yield d_i, d_j, d_t
 
 
@@ -180,7 +180,7 @@ class BipartiteGraphSampler():
 
         while True:
             if dataset.paper_authorlist_dict[d_i] != [] \
-                and a_t not in dataset.paper_authorlist_dict[d_i]:
+                    and a_t not in dataset.paper_authorlist_dict[d_i]:
                 a_j = random.choice(dataset.paper_authorlist_dict[d_i])
                 yield d_i, a_j, a_t
                 break
@@ -200,7 +200,7 @@ class BipartiteGraphSampler():
 
         while True:
             if dataset.paper_authorlist_dict[d_i] != [] \
-                and neg_pair[0] not in dataset.paper_authorlist_dict[d_i] \
+                    and neg_pair[0] not in dataset.paper_authorlist_dict[d_i] \
                     and neg_pair[1] not in dataset.paper_authorlist_dict[d_i]:
 
                 a_j = random.choice(dataset.paper_authorlist_dict[d_i])
@@ -233,7 +233,7 @@ class BipartiteGraphSampler():
                 # sample negative instance based on pre-defined exponential distribution
                 norm_soft = softmax([bpr_optimizer.predict_score(d_i, ne, "pd")
                                      for ne in neg_list])
-                a_t = np.random.choice(neg_list, 1, p = norm_soft)[0]
+                a_t = np.random.choice(neg_list, 1, p=norm_soft)[0]
                 yield d_i, a_j, a_t
                 break
 

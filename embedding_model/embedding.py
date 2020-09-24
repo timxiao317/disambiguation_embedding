@@ -9,6 +9,7 @@ class BprOptimizer():
     alpha: learning rate
     matrix_reg: regularization parameter of matrix
     """
+
     def __init__(self, latent_dimen, alpha, matrix_reg):
         self.latent_dimen = latent_dimen
         self.alpha = alpha
@@ -37,14 +38,14 @@ class BprOptimizer():
 
         grad_fst = common_term * (self.author_latent_matrix[snd] - \
                                   self.author_latent_matrix[third]) + \
-                    2 * self.matrix_reg * self.author_latent_matrix[fst]
+                   2 * self.matrix_reg * self.author_latent_matrix[fst]
         self.author_latent_matrix[fst] = self.author_latent_matrix[fst] - \
                                          self.alpha * grad_fst
 
         grad_snd = common_term * self.author_latent_matrix[fst] + \
                    2 * self.matrix_reg * self.author_latent_matrix[snd]
-        self.author_latent_matrix[snd]= self.author_latent_matrix[snd] - \
-                                        self.alpha * grad_snd
+        self.author_latent_matrix[snd] = self.author_latent_matrix[snd] - \
+                                         self.alpha * grad_snd
 
         grad_third = -common_term * self.author_latent_matrix[fst] + \
                      2 * self.matrix_reg * self.author_latent_matrix[third]
@@ -60,12 +61,12 @@ class BprOptimizer():
                                   self.author_latent_matrix[third]) + \
                    2 * self.matrix_reg * self.paper_latent_matrix[fst]
         self.paper_latent_matrix[fst] = self.paper_latent_matrix[fst] - \
-                                         self.alpha * grad_fst
+                                        self.alpha * grad_fst
 
         grad_snd = common_term * self.paper_latent_matrix[fst] + \
                    2 * self.matrix_reg * self.author_latent_matrix[snd]
-        self.author_latent_matrix[snd]= self.author_latent_matrix[snd] - \
-                                        self.alpha * grad_snd
+        self.author_latent_matrix[snd] = self.author_latent_matrix[snd] - \
+                                         self.alpha * grad_snd
 
         grad_third = -common_term * self.paper_latent_matrix[fst] + \
                      2 * self.matrix_reg * self.author_latent_matrix[third]
@@ -81,12 +82,12 @@ class BprOptimizer():
                                   self.paper_latent_matrix[third]) + \
                    2 * self.matrix_reg * self.paper_latent_matrix[fst]
         self.paper_latent_matrix[fst] = self.paper_latent_matrix[fst] - \
-                                         self.alpha * grad_fst
+                                        self.alpha * grad_fst
 
         grad_snd = common_term * self.paper_latent_matrix[fst] + \
                    2 * self.matrix_reg * self.paper_latent_matrix[snd]
-        self.paper_latent_matrix[snd]= self.paper_latent_matrix[snd] - \
-                                       self.alpha * grad_snd
+        self.paper_latent_matrix[snd] = self.paper_latent_matrix[snd] - \
+                                        self.alpha * grad_snd
 
         grad_third = -common_term * self.paper_latent_matrix[fst] + \
                      2 * self.matrix_reg * self.paper_latent_matrix[third]
@@ -98,7 +99,7 @@ class BprOptimizer():
         loss includes ranking loss and model complexity
         """
         x = self.predict_score(fst, snd, "pp") - \
-             self.predict_score(fst, third, "pp")
+            self.predict_score(fst, third, "pp")
         ranking_loss = -np.log(sigmoid(x))
 
         complexity = 0.0

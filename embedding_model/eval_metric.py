@@ -14,9 +14,9 @@ class Evaluator():
         D_matrix = construct_doc_matrix(bpr_optimizer.paper_latent_matrix,
                                         dataset.paper_list)
         true_cluster_size = len(set(dataset.label_list))
-        y_pred = AgglomerativeClustering(n_clusters = true_cluster_size,
-                                         linkage = "average",
-                                         affinity = "cosine").fit_predict(D_matrix)
+        y_pred = AgglomerativeClustering(n_clusters=true_cluster_size,
+                                         linkage="average",
+                                         affinity="cosine").fit_predict(D_matrix)
 
         true_label_dict = {}
         for idx, true_lbl in enumerate(dataset.label_list):
@@ -48,9 +48,9 @@ class Evaluator():
         # compute F1 for each row C_i
         sum_f1 = 0.0
         for row in xrange(0, r_num):
-            row_sum = np.sum(r_k_matrix[row,:])
+            row_sum = np.sum(r_k_matrix[row, :])
             if row_sum != 0:
-                max_col_index = np.argmax(r_k_matrix[row,:])
+                max_col_index = np.argmax(r_k_matrix[row, :])
                 row_max_value = r_k_matrix[row, max_col_index]
                 prec = float(row_max_value) / row_sum
                 col_sum = np.sum(r_k_matrix[:, max_col_index])
