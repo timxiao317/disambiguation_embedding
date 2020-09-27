@@ -1,3 +1,5 @@
+import codecs
+
 import data_parser
 import pickle
 from os.path import dirname, join, abspath
@@ -40,9 +42,9 @@ def main(args):
     dd_sampler = sampler.LinkedDocGraphSampler()
     eval_f1 = eval_metric.Evaluator()
     run_helper = train_helper.TrainHelper()
-    run_helper.helper(args.num_epoch, dataset, bpr_optimizer,
+    return run_helper.helper(args.num_epoch, dataset, bpr_optimizer,
                       pp_sampler, pd_sampler, dd_sampler,
-                      eval_f1, args.sampler_method)
+                      eval_f1, args.sampler_method, args.OUT_DIR)
 
 
 if __name__ == "__main__":
@@ -51,14 +53,36 @@ if __name__ == "__main__":
     PARENT_PROJ_DIR = dirname(PROJ_DIR)
     print
     PARENT_PROJ_DIR
+    OUT_DIR = join(PROJ_DIR, 'out', DATA_SET_NAME)
     RAW_DATA_DIR = join(PARENT_PROJ_DIR, 'sota_data', 'cikm_data', DATA_SET_NAME)
     SPLIT_PATH = join(PARENT_PROJ_DIR, 'split')
     with open(join(SPLIT_PATH, '{}_python2'.format(DATA_SET_NAME)), 'rb') as load:
         _, TRAIN_NAME_LIST, VAL_NAME_LIST, TEST_NAME_LIST = pickle.load(load)
-
+    wf = codecs.open(join(OUT_DIR, 'results.csv'), 'w', encoding='utf-8')
+    wf.write('name,precision,recall,f1\n')
     args = parse_args()
+    tp_sum = 0
+    fp_sum = 0
+    fn_sum = 0
+    precision_sum = 0
+    recall_sum = 0
     for test_name in TEST_NAME_LIST:
-        print
-        test_name
+        print test_name
         args.file_path = join(RAW_DATA_DIR, '{}.xml'.format(test_name))
-        main(args)
+        args.OUT_DIR = OUT_DIR
+        tp, fp, fn, precision, recall, f1 = main(args)
+        tp_sum += tp
+        fp_sum += fp
+        fn_sum += fn
+        precision_sum += precision
+        recall_sum += recall
+        wf.write('{0},{1},{2},{3:.5f},{4:.5f},{5:.5f}\n'.format(
+            test_name, precision, recall, f1))
+    macro_precision = precision_sum / len(TEST_NAME_LIST)
+    macro_recall = recall_sum / len(TEST_NAME_LIST)
+    macro_f1 = 2 * macro_precision * macro_recall / (macro_precision + macro_recall)
+    micro_precision = tp_sum / (tp_sum + fp_sum)
+    micro_recall = tp_sum / (tp_sum + fn_sum)
+    micro_f1 = 2 * micro_precision * micro_recall / (micro_precision + micro_recall)
+    wf.write('average,,,{0:.5f},{1:.5f},{2:.5f},{3:.5f},{4:5f},{5:5f}\n'.format(
+        macro_precision, macro_recall, macro_f1, micro_precision, micro_recall, micro_f1))
