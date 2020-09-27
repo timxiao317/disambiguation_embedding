@@ -77,7 +77,7 @@ if __name__ == "__main__":
         fn_sum += fn
         precision_sum += precision
         recall_sum += recall
-        wf.write('{0},{1},{2},{3:.5f},{4:.5f},{5:.5f}\n'.format(
+        wf.write('{0},{1:.5f},{2:.5f},{3:.5f}\n'.format(
             test_name, precision, recall, f1))
     macro_precision = precision_sum / len(TEST_NAME_LIST)
     macro_recall = recall_sum / len(TEST_NAME_LIST)
@@ -85,5 +85,5 @@ if __name__ == "__main__":
     micro_precision = tp_sum / (tp_sum + fp_sum)
     micro_recall = tp_sum / (tp_sum + fn_sum)
     micro_f1 = 2 * micro_precision * micro_recall / (micro_precision + micro_recall)
-    wf.write('average,,,{0:.5f},{1:.5f},{2:.5f},{3:.5f},{4:5f},{5:5f}\n'.format(
+    wf.write('average,{0:.5f},{1:.5f},{2:.5f},{3:.5f},{4:5f},{5:5f}\n'.format(
         macro_precision, macro_recall, macro_f1, micro_precision, micro_recall, micro_f1))

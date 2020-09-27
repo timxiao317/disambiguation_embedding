@@ -28,9 +28,8 @@ class TrainHelper():
                     for i, j, t in dd_sampler.generate_triplet_uniform(dataset):
                         bpr_optimizer.update_dd_gradient(i, j, t)
                         bpr_loss += bpr_optimizer.compute_dd_loss(i, j, t)
-                # print
-                # 'f1 is ' + str(average_f1)
-                # print
+                average_f1 = eval_f1.compute_f1(dataset, bpr_optimizer)
+                print str(_) + ', f1 is ' + str(average_f1)
 
         elif sampler_method == "reject":
             for _ in xrange(0, num_epoch):
