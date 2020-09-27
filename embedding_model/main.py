@@ -86,4 +86,4 @@ if __name__ == "__main__":
     micro_recall = tp_sum / (tp_sum + fn_sum)
     micro_f1 = 2 * micro_precision * micro_recall / (micro_precision + micro_recall)
     wf.write('average,{0:.5f},{1:.5f},{2:.5f},{3:.5f},{4:5f},{5:5f}\n'.format(
-        macro_precision, macro_recall, macro_f1, micro_precision, micro_recall, micro_f1))
+        macro_p recision, macro_recall, macro_f1, micro_precision, micro_recall, micro_f1))
