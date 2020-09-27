@@ -1,4 +1,5 @@
 import codecs
+import os
 
 import data_parser
 import pickle
@@ -44,16 +45,16 @@ def main(args):
     run_helper = train_helper.TrainHelper()
     return run_helper.helper(args.num_epoch, dataset, bpr_optimizer,
                       pp_sampler, pd_sampler, dd_sampler,
-                      eval_f1, args.sampler_method, args.OUT_DIR)
+                      eval_f1, args.sampler_method)
 
 
 if __name__ == "__main__":
     DATA_SET_NAME = 'whoiswho_new'
     PROJ_DIR = dirname(dirname(abspath(__file__)))
     PARENT_PROJ_DIR = dirname(PROJ_DIR)
-    print
-    PARENT_PROJ_DIR
     OUT_DIR = join(PROJ_DIR, 'out', DATA_SET_NAME)
+    if not os.path.exists(OUT_DIR):
+        os.makedirs(OUT_DIR)
     RAW_DATA_DIR = join(PARENT_PROJ_DIR, 'sota_data', 'cikm_data', DATA_SET_NAME)
     SPLIT_PATH = join(PARENT_PROJ_DIR, 'split')
     with open(join(SPLIT_PATH, '{}_python2'.format(DATA_SET_NAME)), 'rb') as load:
