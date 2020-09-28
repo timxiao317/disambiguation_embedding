@@ -75,6 +75,6 @@ class TrainHelper():
         # average_loss = float(bpr_loss) / dataset.num_nnz
         # print
         # "average bpr loss is " + str(average_loss)
-        save_embedding(bpr_optimizer.paper_latent_matrix,
+        # save_embedding(bpr_optimizer.paper_latent_matrix,
                        dataset.paper_list, bpr_optimizer.latent_dimen)
         return eval_f1.pairwise_eval(dataset, bpr_optimizer)
