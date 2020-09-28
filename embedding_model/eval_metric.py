@@ -92,22 +92,10 @@ class Evaluator():
                     fn += 1
         tp_plus_fp = tp + fp
         tp_plus_fn = tp + fn
-        print tp_plus_fp, tp_plus_fn
-        if tp_plus_fp == 0:
-            print 'tp_plus_fp==0'
-            precision = 0.
-        else:
-            precision = tp / tp_plus_fp
-        if tp_plus_fn == 0:
-            print 'tp_plus_fn==0'
-            recall = 0.
-        else:
-            recall = tp / tp_plus_fn
-
-        if not precision or not recall:
-            print 'precision == 0 or recall == 0'
-            f1 = 0.
-        else:
+        precision = tp / tp_plus_fp
+        recall = tp / tp_plus_fn
+        f1 = 0.
+        if precision and recall:
             f1 = (2 * precision * recall) / (precision + recall)
         print tp, fp, fn, precision, recall, f1
         return tp, fp, fn, precision, recall, f1
