@@ -75,9 +75,9 @@ class Evaluator():
                                          linkage="average",
                                          affinity="cosine").fit_predict(D_matrix)
         truths = dataset.label_list
-        tp = 0
-        fp = 0
-        fn = 0
+        tp = 0.
+        fp = 0.
+        fn = 0.
         n_samples = len(preds)
         for i in range(n_samples - 1):
             pred_i = preds[i]
