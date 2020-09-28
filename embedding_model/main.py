@@ -72,6 +72,7 @@ if __name__ == "__main__":
         args.file_path = join(RAW_DATA_DIR, '{}.xml'.format(test_name))
         args.OUT_DIR = OUT_DIR
         tp, fp, fn, precision, recall, f1 = main(args)
+        print(tp, fp, fn, precision, recall, f1)
         tp_sum += tp
         fp_sum += fp
         fn_sum += fn
