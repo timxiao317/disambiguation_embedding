@@ -67,7 +67,7 @@ if __name__ == "__main__":
     fn_sum = 0
     precision_sum = 0
     recall_sum = 0
-    for test_name in TEST_NAME_LIST[:1]:
+    for test_name in TEST_NAME_LIST:
         print test_name
         args.file_path = join(RAW_DATA_DIR, '{}.xml'.format(test_name))
         args.OUT_DIR = OUT_DIR

@@ -97,6 +97,6 @@ class Evaluator():
         f1 = 0.
         if precision and recall:
             f1 = (2 * precision * recall) / (precision + recall)
-        print tp, fp, fn, precision, recall, f1
+        print precision, recall, f1
         return tp, fp, fn, precision, recall, f1
 
