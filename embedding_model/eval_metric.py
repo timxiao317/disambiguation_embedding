@@ -105,6 +105,7 @@ class Evaluator():
             recall = tp / tp_plus_fn
 
         if not precision or not recall:
+            print 'precision == 0 or recall == 0'
             f1 = 0.
         else:
             f1 = (2 * precision * recall) / (precision + recall)
