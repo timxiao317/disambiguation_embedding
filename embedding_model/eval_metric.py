@@ -68,6 +68,7 @@ class Evaluator():
         for name disambiguation
         use cluster-level mean F1 for evaluation
         """
+        print("aaaaaaaaaaaaaaaaa")
         D_matrix = construct_doc_matrix(bpr_optimizer.paper_latent_matrix,
                                         dataset.paper_list)
         true_cluster_size = len(set(dataset.label_list))
