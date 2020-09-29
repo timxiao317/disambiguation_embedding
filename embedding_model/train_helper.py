@@ -1,3 +1,4 @@
+import time
 from datetime import datetime
 
 from utility import save_embedding
@@ -21,7 +22,7 @@ class TrainHelper():
                     update embedding in person-document network
                     update embedding in doc-doc network
                     """
-                    time = time.time()
+                    time_start = time.time()
                     for i, j, t in pp_sampler.generate_triplet_uniform(dataset):
                         # print(1, i, j, t)
                         bpr_optimizer.update_pp_gradient(i, j, t)
@@ -36,7 +37,7 @@ class TrainHelper():
                         # print(3, i, j, t)
                         bpr_optimizer.update_dd_gradient(i, j, t)
                         bpr_loss += bpr_optimizer.compute_dd_loss(i, j, t)
-                    print(time.time()-time)
+                    print(time.time()-time_start)
                 # average_f1 = eval_f1.compute_f1(dataset, bpr_optimizer)
                 # print str(_) + ', f1 is ' + str(average_f1)
 
