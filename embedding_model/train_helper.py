@@ -73,6 +73,7 @@ class TrainHelper():
                     update embedding in person-document network
                     update embedding in doc-doc network
                     """
+                    time_start = time.time()
                     for i, j, t in pp_sampler.generate_triplet_adaptive(dataset, bpr_optimizer):
                         bpr_optimizer.update_pp_gradient(i, j, t)
                         # bpr_loss += bpr_optimizer.compute_pp_loss(i, j, t)
@@ -83,6 +84,8 @@ class TrainHelper():
 
                     for i, j, t in dd_sampler.generate_triplet_adaptive(dataset, bpr_optimizer):
                         bpr_optimizer.update_dd_gradient(i, j, t)
+                    print(time.time() - time_start)
+
                         # bpr_loss += bpr_optimizer.compute_dd_loss(i, j, t)
         # average_loss = float(bpr_loss) / dataset.num_nnz
         # print
