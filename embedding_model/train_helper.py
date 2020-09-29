@@ -15,23 +15,24 @@ class TrainHelper():
                 print(_)
                 bpr_loss = 0.0
                 for _ in xrange(0, dataset.num_nnz):
+                    print(_, dataset.num_nnz)
                     """
                     update embedding in person-person network
                     update embedding in person-document network
                     update embedding in doc-doc network
                     """
                     for i, j, t in pp_sampler.generate_triplet_uniform(dataset):
-                        print(1, i, j, t)
+                        # print(1, i, j, t)
                         bpr_optimizer.update_pp_gradient(i, j, t)
                         bpr_loss += bpr_optimizer.compute_pp_loss(i, j, t)
 
                     for i, j, t in pd_sampler.generate_triplet_uniform(dataset):
-                        print(2, i, j, t)
+                        # print(2, i, j, t)
                         bpr_optimizer.update_pd_gradient(i, j, t)
                         bpr_loss += bpr_optimizer.compute_pd_loss(i, j, t)
 
                     for i, j, t in dd_sampler.generate_triplet_uniform(dataset):
-                        print(3, i, j, t)
+                        # print(3, i, j, t)
                         bpr_optimizer.update_dd_gradient(i, j, t)
                         bpr_loss += bpr_optimizer.compute_dd_loss(i, j, t)
                 # average_f1 = eval_f1.compute_f1(dataset, bpr_optimizer)
