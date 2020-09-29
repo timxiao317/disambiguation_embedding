@@ -1,4 +1,4 @@
-from datetime import datatime
+from datetime import datetime
 
 from utility import save_embedding
 
