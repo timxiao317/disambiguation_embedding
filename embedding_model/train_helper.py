@@ -21,14 +21,17 @@ class TrainHelper():
                     update embedding in doc-doc network
                     """
                     for i, j, t in pp_sampler.generate_triplet_uniform(dataset):
+                        print(1, i, j, t)
                         bpr_optimizer.update_pp_gradient(i, j, t)
                         bpr_loss += bpr_optimizer.compute_pp_loss(i, j, t)
 
                     for i, j, t in pd_sampler.generate_triplet_uniform(dataset):
+                        print(2, i, j, t)
                         bpr_optimizer.update_pd_gradient(i, j, t)
                         bpr_loss += bpr_optimizer.compute_pd_loss(i, j, t)
 
                     for i, j, t in dd_sampler.generate_triplet_uniform(dataset):
+                        print(3, i, j, t)
                         bpr_optimizer.update_dd_gradient(i, j, t)
                         bpr_loss += bpr_optimizer.compute_dd_loss(i, j, t)
                 # average_f1 = eval_f1.compute_f1(dataset, bpr_optimizer)
