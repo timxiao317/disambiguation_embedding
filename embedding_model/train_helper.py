@@ -13,7 +13,6 @@ class TrainHelper():
         if sampler_method == "uniform":
             for _ in xrange(0, num_epoch):
                 print(_)
-                print(datatime.now())
                 bpr_loss = 0.0
                 for _ in xrange(0, dataset.num_nnz):
                     """
