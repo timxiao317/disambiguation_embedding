@@ -67,7 +67,7 @@ if __name__ == "__main__":
     fn_sum = 0
     precision_sum = 0
     recall_sum = 0
-    for test_name in TEST_NAME_LIST[12:]:
+    for test_name in TEST_NAME_LIST:
         print test_name
         args.file_path = join(RAW_DATA_DIR, '{}.xml'.format(test_name))
         args.OUT_DIR = OUT_DIR
@@ -86,5 +86,7 @@ if __name__ == "__main__":
     micro_precision = tp_sum / (tp_sum + fp_sum)
     micro_recall = tp_sum / (tp_sum + fn_sum)
     micro_f1 = 2 * micro_precision * micro_recall / (micro_precision + micro_recall)
-    wf.write('average,{0:.5f},{1:.5f},{2:.5f},{3:.5f},{4:5f},{5:5f}\n'.format(
-        macro_precision, macro_recall, macro_f1, micro_precision, micro_recall, micro_f1))
+    wf.write('macro,{0:.5f},{1:.5f},{2:.5f}\n'.format(
+        macro_precision, macro_recall, macro_f1))
+    wf.write('micro,{0:.5f},{1:.5f},{2:.5f}\n'.format(
+        micro_precision, micro_recall, micro_f1))
