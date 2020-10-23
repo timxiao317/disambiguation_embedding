@@ -78,8 +78,8 @@ if __name__ == "__main__":
         fn_sum += fn
         precision_sum += precision
         recall_sum += recall
-        wf.write('{0},{1:.5f},{2:.5f},{3:.5f}\n'.format(
-            test_name, precision, recall, f1))
+        wf.write('{0},{1:.5f},{2:.5f},{3:.5f},{4:.5f},{5:.5f},{6:.5f}\n'.format(
+            test_name, precision, recall, f1, tp, fp, fn))
     macro_precision = precision_sum / len(TEST_NAME_LIST)
     macro_recall = recall_sum / len(TEST_NAME_LIST)
     macro_f1 = 2 * macro_precision * macro_recall / (macro_precision + macro_recall)
