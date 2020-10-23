@@ -27,7 +27,7 @@ def parse_args():
     parser_arg.add_argument("num_epoch", type=int, default=100,
                             help="number of epochs for SGD inference")
     parser_arg.add_argument("sampler_method", type=str, default='uniform', help="sampling approach")
-    parser_arg.add_argument("datasset_name", type=str, default="whoiswho_new")
+    parser_arg.add_argument("dataset_name", type=str, default="whoiswho_new")
     return parser_arg.parse_args()
 
 
