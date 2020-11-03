@@ -59,7 +59,9 @@ if __name__ == "__main__":
     RAW_DATA_DIR = join(PARENT_PROJ_DIR, 'sota_data', 'cikm_data', DATA_SET_NAME)
     SPLIT_PATH = join(PARENT_PROJ_DIR, 'split')
     with open(join(SPLIT_PATH, '{}_python2'.format(DATA_SET_NAME)), 'rb') as load:
+        print(pickle.load(load))
         _, TRAIN_NAME_LIST, TEST_NAME_LIST = pickle.load(load)
+
     wf = codecs.open(join(OUT_DIR, 'results.csv'), 'w', encoding='utf-8')
     wf.write('name,precision,recall,f1\n')
     tp_sum = 0
