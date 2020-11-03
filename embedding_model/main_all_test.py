@@ -59,7 +59,8 @@ if __name__ == "__main__":
     RAW_DATA_DIR = join(PARENT_PROJ_DIR, 'sota_data', 'cikm_data', DATA_SET_NAME)
     SPLIT_PATH = join(PARENT_PROJ_DIR, 'split')
     with open(join(SPLIT_PATH, '{}_python2'.format(DATA_SET_NAME)), 'rb') as load:
-        _, TRAIN_NAME_LIST, VAL_NAME_LIST, TEST_NAME_LIST = pickle.load(load)
+        _, TRAIN_NAME_LIST, TEST_NAME_LIST = pickle.load(load)
+
     wf = codecs.open(join(OUT_DIR, 'results.csv'), 'w', encoding='utf-8')
     wf.write('name,precision,recall,f1\n')
     tp_sum = 0
@@ -67,7 +68,7 @@ if __name__ == "__main__":
     fn_sum = 0
     precision_sum = 0
     recall_sum = 0
-    for test_name in TRAIN_NAME_LIST + VAL_NAME_LIST + TEST_NAME_LIST:
+    for test_name in TRAIN_NAME_LIST + TEST_NAME_LIST:
         print test_name
         args.file_path = join(RAW_DATA_DIR, '{}.xml'.format(test_name))
         args.OUT_DIR = OUT_DIR
@@ -80,8 +81,8 @@ if __name__ == "__main__":
         recall_sum += recall
         wf.write('{0},{1:.5f},{2:.5f},{3:.5f},{4:.5f},{5:.5f},{6:.5f}\n'.format(
             test_name, precision, recall, f1, tp, fp, fn))
-    macro_precision = precision_sum / len(TRAIN_NAME_LIST + VAL_NAME_LIST + TEST_NAME_LIST)
-    macro_recall = recall_sum / len(TRAIN_NAME_LIST + VAL_NAME_LIST + TEST_NAME_LIST)
+    macro_precision = precision_sum / len(TRAIN_NAME_LIST + TEST_NAME_LIST)
+    macro_recall = recall_sum / len(TRAIN_NAME_LIST + TEST_NAME_LIST)
     macro_f1 = 2 * macro_precision * macro_recall / (macro_precision + macro_recall)
     micro_precision = tp_sum / (tp_sum + fp_sum)
     micro_recall = tp_sum / (tp_sum + fn_sum)
