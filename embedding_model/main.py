@@ -18,16 +18,16 @@ def parse_args():
     """
     parser_arg = argparse.ArgumentParser(description=
                                          "run embedding for name disambiguation")
-    parser_arg.add_argument("latent_dimen", type=int, default=20,
+    parser_arg.add_argument("--latent_dimen", type=int, default=20,
                             help='number of dimension in embedding')
-    parser_arg.add_argument("alpha", type=float, default=0.02,
+    parser_arg.add_argument("--alpha", type=float, default=0.02,
                             help='learning rate')
-    parser_arg.add_argument("matrix_reg", type=float, default=0.01,
+    parser_arg.add_argument("--matrix_reg", type=float, default=0.01,
                             help='matrix regularization parameter')
-    parser_arg.add_argument("num_epoch", type=int, default=100,
+    parser_arg.add_argument("--num_epoch", type=int, default=50,
                             help="number of epochs for SGD inference")
-    parser_arg.add_argument("sampler_method", type=str, default='uniform', help="sampling approach")
-    parser_arg.add_argument("dataset_name", type=str, default="whoiswho_new")
+    parser_arg.add_argument("--sampler_method", type=str, default='uniform', help="sampling approach")
+    parser_arg.add_argument("--dataset_name", type=str, default="whoiswho_new")
     return parser_arg.parse_args()
 
 
@@ -59,7 +59,7 @@ if __name__ == "__main__":
     RAW_DATA_DIR = join(PARENT_PROJ_DIR, 'sota_data', 'cikm_data', DATA_SET_NAME)
     SPLIT_PATH = join(PARENT_PROJ_DIR, 'split')
     with open(join(SPLIT_PATH, '{}_python2'.format(DATA_SET_NAME)), 'rb') as load:
-        _, TRAIN_NAME_LIST, VAL_NAME_LIST, TEST_NAME_LIST = pickle.load(load)
+        _, TRAIN_NAME_LIST, TEST_NAME_LIST = pickle.load(load)
     wf = codecs.open(join(OUT_DIR, 'results.csv'), 'w', encoding='utf-8')
     wf.write('name,precision,recall,f1\n')
     tp_sum = 0

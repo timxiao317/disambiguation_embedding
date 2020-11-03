@@ -18,16 +18,16 @@ def parse_args():
     """
     parser_arg = argparse.ArgumentParser(description=
                                          "run embedding for name disambiguation")
-    parser_arg.add_argument("latent_dimen", type=int, default=20,
+    parser_arg.add_argument("--latent_dimen", type=int, default=20,
                             help='number of dimension in embedding')
-    parser_arg.add_argument("alpha", type=float, default=0.02,
+    parser_arg.add_argument("--alpha", type=float, default=0.02,
                             help='learning rate')
-    parser_arg.add_argument("matrix_reg", type=float, default=0.01,
+    parser_arg.add_argument("--matrix_reg", type=float, default=0.01,
                             help='matrix regularization parameter')
-    parser_arg.add_argument("num_epoch", type=int, default=100,
+    parser_arg.add_argument("--num_epoch", type=int, default=50,
                             help="number of epochs for SGD inference")
-    parser_arg.add_argument("sampler_method", type=str, default='uniform', help="sampling approach")
-    parser_arg.add_argument("dataset_name", type=str, default="whoiswho_new")
+    parser_arg.add_argument("--sampler_method", type=str, default='uniform', help="sampling approach")
+    parser_arg.add_argument("--dataset_name", type=str, default="whoiswho_new")
     return parser_arg.parse_args()
 
 
@@ -80,8 +80,8 @@ if __name__ == "__main__":
         recall_sum += recall
         wf.write('{0},{1:.5f},{2:.5f},{3:.5f},{4:.5f},{5:.5f},{6:.5f}\n'.format(
             test_name, precision, recall, f1, tp, fp, fn))
-    macro_precision = precision_sum / len(TEST_NAME_LIST)
-    macro_recall = recall_sum / len(TEST_NAME_LIST)
+    macro_precision = precision_sum / len(TRAIN_NAME_LIST + VAL_NAME_LIST + TEST_NAME_LIST)
+    macro_recall = recall_sum / len(TRAIN_NAME_LIST + VAL_NAME_LIST + TEST_NAME_LIST)
     macro_f1 = 2 * macro_precision * macro_recall / (macro_precision + macro_recall)
     micro_precision = tp_sum / (tp_sum + fp_sum)
     micro_recall = tp_sum / (tp_sum + fn_sum)
