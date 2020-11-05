@@ -70,7 +70,7 @@ if __name__ == "__main__":
     recall_sum = 0
     for test_name in TEST_NAME_LIST:
         print test_name
-        args.file_path = join(RAW_DATA_DIR, '{}.xml'.format(test_name))
+        args.file_path = join(RAW_DATA_DIR, '{}.xml'.format(test_name).encode("utf-8"))
         args.OUT_DIR = OUT_DIR
         tp, fp, fn, precision, recall, f1 = main(args)
         print(tp, fp, fn, precision, recall, f1)
